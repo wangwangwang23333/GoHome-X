@@ -1,0 +1,179 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:local="clr-namespace:GameCommunity" 
+             Title="{Binding Title}"
+             x:Class="GameCommunity.Views.HomePage"
+             xmlns:viewmodel="clr-namespace:GameCommunity.ViewModels" 
+             xmlns:component="clr-namespace:GameCommunity.Components"
+             xmlns:model="clr-namespace:GameCommunity.Models" >
+    <ContentPage.Content>
+        <StackLayout>
+
+            <RefreshView x:DataType="viewmodel:HomePageStaysViewModel" 
+                         Command="{Binding LoadHomePageStaysCommand}" IsRefreshing="{Binding IsBusy, Mode=TwoWay}">
+                <StackLayout>
+                    <!-- 分割线 -->
+                    <BoxView Color="Gray" HeightRequest="0.5" />
+
+                    <StackLayout Padding="5">
+                        <component:AutoCarouselView 
+                            HeightRequest="270"
+                            WidthRequest="1000"
+                            ItemsSource="{Binding HeaderImages}"
+                            IndicatorView="indicatorView"
+                            Interval="5">
+                            <component:AutoCarouselView.ItemTemplate>
+                                <DataTemplate x:DataType="model:SingleImage">
+                                    <RelativeLayout>
+                                        <Image Source="{Binding ImageUrl}"
+                                            Aspect="AspectFill"
+                                            HeightRequest="270"
+                                               WidthRequest="1000"
+                                                               >
+                                            <Image.Effects>
+                                                <local:RoundEffect />
+                                            </Image.Effects>
+                                        </Image>
+                                        <Label Text="探索归宿吧！" 
+                                               TextColor="White"
+                                               FontAttributes="Bold"
+                                               />
+                                    </RelativeLayout>
+                                </DataTemplate>
+                            </component:AutoCarouselView.ItemTemplate>
+                        </component:AutoCarouselView>
+                        <IndicatorView x:Name="indicatorView"
+                           IndicatorColor="LightGray"
+                           SelectedIndicatorColor="DarkGray"
+                           HorizontalOptions="Center" />
+                    </StackLayout>
+
+                    <!--高分、热销、实惠房源列表-->
+                    <CollectionView ItemsSource="{Binding HomePageStayGroups}"
+                                    IsGrouped="True"
+                                    >
+                        
+                        <!--分组信息-->
+                        <CollectionView.GroupHeaderTemplate >
+                            <DataTemplate x:DataType="model:HomePageStayGroup">
+                                <StackLayout>
+                                    <StackLayout Orientation="Horizontal">
+                                        <Image Source="{Binding ImgUrl}" />
+                                        <StackLayout>
+                                            <Label Text="{Binding Description}"
+                                           FontSize="Large"
+                                           FontAttributes="Bold" />
+                                            <Label Text="在这你找到你喜欢的！" />
+                                        </StackLayout>
+                                    </StackLayout>
+                                    <!--分割线-->
+                                    <BoxView Color="Gray" HeightRequest="0.5" />
+                                </StackLayout>
+                            </DataTemplate>
+                        </CollectionView.GroupHeaderTemplate>
+                        <CollectionView.ItemTemplate>
+                            <DataTemplate>
+                                <StackLayout x:DataType="model:HomePageStay">
+                                    <StackLayout Orientation="Horizontal" Padding="10">
+                                        <!--封面走马灯图片-->
+                                        <StackLayout >
+                                            <component:AutoCarouselView 
+                                                HeightRequest="70"
+                                                WidthRequest="140"
+                                                ItemsSource="{Binding StayPhotoList}" Interval="5">
+                                                <component:AutoCarouselView.ItemTemplate>
+                                                    <DataTemplate x:DataType="model:SingleImage">
+                                                        <Image Source="{Binding ImageUrl}"
+                                                               WidthRequest="140"
+                                                               Aspect="AspectFill"
+                                                               HeightRequest="70"
+                                                               />
+                                                    </DataTemplate>
+                                                </component:AutoCarouselView.ItemTemplate>
+                                            </component:AutoCarouselView>
+                                        </StackLayout>
+                                        
+                                       <!--单张图片-->
+                                        <!--
+                                         <Image Source="{Binding StayPhoto}" 
+                                       WidthRequest="140"
+                                       Aspect="AspectFill"
+                                       HeightRequest="70">
+                                            <Image.Effects>
+                                                <local:RoundEffect />
+                                            </Image.Effects>
+                                        </Image>
+                                        -->
+                                        <StackLayout Orientation="Vertical" VerticalOptions="CenterAndExpand">
+                                            <Label Text="{Binding StayName}" 
+                                           LineBreakMode="TailTruncation"
+                                           MaxLines="1"
+                                           FontAttributes="Bold"
+                                           FontSize="Body"
+                                           />
+                                            <!--房间价格-->
+                                            <Label Text="{Binding StayPriceShown}" 
+                                           LineBreakMode="TailTruncation"
+                                           MaxLines="1"
+                                           FontAttributes="Bold"
+                                           FontSize="Body"
+                                          />
+                                            <StackLayout Orientation="Horizontal" HorizontalOptions="Start">
+                                                <!--房东头像-->
+                                                <Image Source="{Binding HostAvatar}"
+                                                   WidthRequest="20"
+                                                   HeightRequest="20"
+                                                   Aspect="Fill"
+                               >
+                                                    <Image.Effects>
+                                                        <local:RoundEffect />
+                                                    </Image.Effects>
+                                                </Image>
+                                                <!--标签-->
+                                                <Label Text="{Binding StayDescription}" />
+                                                <Label Text="{Binding StayScoreShown}" TextColor="#559BCB"/>
+                                                <!--回复数-->
+                                                <StackLayout Orientation="Horizontal">
+                                                    <Image Source="https://wwwtypora.oss-cn-shanghai.aliyuncs.com/reply.png"/>
+                                                    <Label Text="{Binding StayCommentNum}"/>
+                                                </StackLayout>
+                                            </StackLayout>
+                                        </StackLayout>
+
+                                    </StackLayout>
+                                </StackLayout>
+                            </DataTemplate>
+                        </CollectionView.ItemTemplate>
+
+                        <CollectionView.GroupFooterTemplate>
+                            <DataTemplate>
+                                <BoxView Color="Transparent" HeightRequest="20" />
+                                
+                            </DataTemplate>
+                        </CollectionView.GroupFooterTemplate>
+                        
+                    </CollectionView>
+                    
+                    
+
+
+               
+                </StackLayout>
+                
+               
+            </RefreshView>
+
+            
+  
+
+
+            <!-- 分割线 -->
+            <BoxView Color="Gray" HeightRequest="0.5" />
+        </StackLayout>
+
+        
+        
+
+    </ContentPage.Content>
+</ContentPage>
