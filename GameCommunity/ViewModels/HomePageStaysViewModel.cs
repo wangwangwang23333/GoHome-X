@@ -123,7 +123,7 @@ namespace GameCommunity.ViewModels
             }
 
             // 跳转到民宿的详细页面
-            // This will push the ItemDetailPage onto the navigation stack
+            await Shell.Current.GoToAsync(nameof(HomeStayDetailPage));
             //await Shell.Current.GoToAsync($"{nameof(HomeStayDetailPage)}");
         }
 
