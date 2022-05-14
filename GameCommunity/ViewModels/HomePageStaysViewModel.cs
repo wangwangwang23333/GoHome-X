@@ -113,7 +113,10 @@ namespace GameCommunity.ViewModels
 
         async void OnHomePageStaySelected(HomePageStay homePageStay)
         {
-            Console.Write("start to loading......................");
+/*            Console.WriteLine("start to loading......................");
+            Console.WriteLine("start to loading......................");
+            Console.WriteLine("start to loading......................");
+            Console.WriteLine("start to loading......................");*/
             if (homePageStay == null)
             {
                 return;
@@ -121,7 +124,7 @@ namespace GameCommunity.ViewModels
 
             // 跳转到民宿的详细页面
             // This will push the ItemDetailPage onto the navigation stack
-            await Shell.Current.GoToAsync($"{nameof(HomeStayDetailPage)}");
+            //await Shell.Current.GoToAsync($"{nameof(HomeStayDetailPage)}");
         }
 
 
