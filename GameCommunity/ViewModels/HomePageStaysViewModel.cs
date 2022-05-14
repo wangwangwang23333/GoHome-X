@@ -45,11 +45,16 @@ namespace GameCommunity.ViewModels
 
             HeaderImages = new List<SingleImage>
             {
-                new SingleImage("https://joes-bucket.oss-cn-shanghai.aliyuncs.com/img/a.gif"),
-                new SingleImage("https://joes-bucket.oss-cn-shanghai.aliyuncs.com/img/mixkit-woman-lying-on-a-couch-looking-at-her-mobile-phone-65-original.png"),
-                new SingleImage("https://joes-bucket.oss-cn-shanghai.aliyuncs.com/img/mixkit-person-cooking-on-a-stovetop-in-the-kitchen-11-original.png"),
-                new SingleImage("https://joes-bucket.oss-cn-shanghai.aliyuncs.com/img/mixkit-man-sitting-in-front-of-a-fire-reading-from-a-66-original.png"),
-                new SingleImage("https://joes-bucket.oss-cn-shanghai.aliyuncs.com/img/mixkit-person-reading-a-book-while-wrapped-in-warm-blankets-with-75-original.png"),
+                new SingleImage("https://joes-bucket.oss-cn-shanghai.aliyuncs.com/img/a.gif",
+                "探索你想要的归宿"),
+                new SingleImage("https://joes-bucket.oss-cn-shanghai.aliyuncs.com/img/mixkit-woman-lying-on-a-couch-looking-at-her-mobile-phone-65-original.png",
+                "像在家中一样悠闲"),
+                new SingleImage("https://joes-bucket.oss-cn-shanghai.aliyuncs.com/img/mixkit-person-cooking-on-a-stovetop-in-the-kitchen-11-original.png",
+                "在民俗中体验烹饪乐趣"),
+                new SingleImage("https://joes-bucket.oss-cn-shanghai.aliyuncs.com/img/mixkit-man-sitting-in-front-of-a-fire-reading-from-a-66-original.png",
+                "享受特别的舒适感"),
+                new SingleImage("https://joes-bucket.oss-cn-shanghai.aliyuncs.com/img/mixkit-person-reading-a-book-while-wrapped-in-warm-blankets-with-75-original.png",
+                "体验归宿的温暖"),
             };
 
             HomePageStayGroups = new ObservableCollection<HomePageStayGroup>();

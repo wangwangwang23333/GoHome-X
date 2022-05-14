@@ -10,9 +10,15 @@ namespace GameCommunity.Models
     public class SingleImage
     {
         public string ImageUrl { get; set; }
+        public string Description { get; set; }
         public SingleImage(string imageUrl)
         {
             ImageUrl = imageUrl;
+        }
+        public SingleImage(string imageUrl, string description)
+        {
+            ImageUrl = imageUrl;
+            Description = description;
         }
     }
 }

@@ -9,7 +9,6 @@
              xmlns:model="clr-namespace:GameCommunity.Models" >
     <ContentPage.Content>
         <StackLayout>
-
             <RefreshView x:DataType="viewmodel:HomePageStaysViewModel" 
                          Command="{Binding LoadHomePageStaysCommand}" IsRefreshing="{Binding IsBusy, Mode=TwoWay}">
                 <StackLayout>
@@ -18,7 +17,7 @@
 
                     <StackLayout Padding="5">
                         <component:AutoCarouselView 
-                            HeightRequest="270"
+                            HeightRequest="300"
                             WidthRequest="1000"
                             ItemsSource="{Binding HeaderImages}"
                             IndicatorView="indicatorView"
@@ -27,17 +26,20 @@
                                 <DataTemplate x:DataType="model:SingleImage">
                                     <RelativeLayout>
                                         <Image Source="{Binding ImageUrl}"
-                                            Aspect="AspectFill"
-                                            HeightRequest="270"
-                                               WidthRequest="1000"
+                                            Aspect="Fill"
+                                            HeightRequest="260"
+                                            WidthRequest="400"
                                                                >
                                             <Image.Effects>
                                                 <local:RoundEffect />
                                             </Image.Effects>
                                         </Image>
-                                        <Label Text="探索归宿吧！" 
+                                        <Label Text="{Binding Description}" 
                                                TextColor="White"
                                                FontAttributes="Bold"
+                                               RelativeLayout.XConstraint="10"
+                                               RelativeLayout.YConstraint="10"
+                                               FontSize="Medium"
                                                />
                                     </RelativeLayout>
                                 </DataTemplate>
@@ -58,11 +60,13 @@
                         <CollectionView.GroupHeaderTemplate >
                             <DataTemplate x:DataType="model:HomePageStayGroup">
                                 <StackLayout>
-                                    <StackLayout Orientation="Horizontal">
-                                        <Image Source="{Binding ImgUrl}" />
+                                    <StackLayout Orientation="Horizontal" Padding="5">
+                                        <Image Source="{Binding ImgUrl}" 
+                                               HeightRequest="50"
+                                               />
                                         <StackLayout>
                                             <Label Text="{Binding Description}"
-                                           FontSize="Large"
+                                           FontSize="Medium"
                                            FontAttributes="Bold" />
                                             <Label Text="在这你找到你喜欢的！" />
                                         </StackLayout>
@@ -114,18 +118,18 @@
                                            />
                                             <!--房间价格-->
                                             <Label Text="{Binding StayPriceShown}" 
-                                           LineBreakMode="TailTruncation"
-                                           MaxLines="1"
-                                           FontAttributes="Bold"
-                                           FontSize="Body"
-                                          />
+                                               LineBreakMode="TailTruncation"
+                                               MaxLines="1"
+                                               FontAttributes="Bold"
+                                               FontSize="Body"
+                                              />
                                             <StackLayout Orientation="Horizontal" HorizontalOptions="Start">
                                                 <!--房东头像-->
                                                 <Image Source="{Binding HostAvatar}"
                                                    WidthRequest="20"
                                                    HeightRequest="20"
                                                    Aspect="Fill"
-                               >
+                                                >
                                                     <Image.Effects>
                                                         <local:RoundEffect />
                                                     </Image.Effects>
@@ -154,19 +158,11 @@
                         </CollectionView.GroupFooterTemplate>
                         
                     </CollectionView>
-                    
-                    
-
-
-               
+ 
                 </StackLayout>
                 
                
             </RefreshView>
-
-            
-  
-
 
             <!-- 分割线 -->
             <BoxView Color="Gray" HeightRequest="0.5" />
