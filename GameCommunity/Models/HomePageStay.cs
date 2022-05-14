@@ -34,13 +34,15 @@ namespace GameCommunity.Models
             {
                 int index = 0;
                 string result = "";
-                while (index++ < StayScore)
+                while (index < StayScore)
                 {
                     result += "★";
+                    index++;
                 }
-                while (index++ < 5)
+                while (index < 5)
                 {
                     result += "☆";
+                    index++;
                 }
                 return result;
             }
