@@ -1,4 +1,5 @@
-﻿using System;
+﻿using GameCommunity.ViewModels;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -15,6 +16,8 @@ namespace GameCommunity.Views
         public HomeStayDetailPage()
         {
             InitializeComponent();
+            // BindingContext = new ItemDetailViewModel();
+            BindingContext = new HomeStayDetailViewModel();
         }
     }
 }

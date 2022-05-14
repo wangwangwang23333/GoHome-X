@@ -113,18 +113,13 @@ namespace GameCommunity.ViewModels
 
         async void OnHomePageStaySelected(HomePageStay homePageStay)
         {
-/*            Console.WriteLine("start to loading......................");
-            Console.WriteLine("start to loading......................");
-            Console.WriteLine("start to loading......................");
-            Console.WriteLine("start to loading......................");*/
             if (homePageStay == null)
             {
                 return;
             }
 
             // 跳转到民宿的详细页面
-            await Shell.Current.GoToAsync(nameof(HomeStayDetailPage));
-            //await Shell.Current.GoToAsync($"{nameof(HomeStayDetailPage)}");
+            await Shell.Current.GoToAsync($"{nameof(HomeStayDetailPage)}?{nameof(HomeStayDetailViewModel.PageId)}={homePageStay.StayId}");
         }
 
 
