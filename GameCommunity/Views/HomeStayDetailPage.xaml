@@ -1,11 +1,81 @@
 ﻿<?xml version="1.0" encoding="UTF-8"?>
 <ContentPage xmlns="http://xamarin.com/schemas/2014/forms" 
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-             x:Class="GameCommunity.Views.HomeStayDetailPage">
+             x:Class="GameCommunity.Views.HomeStayDetailPage"
+             xmlns:component="clr-namespace:GameCommunity.Components" 
+             xmlns:model="clr-namespace:GameCommunity.Models"
+             xmlns:viewmodel="clr-namespace:GameCommunity.ViewModels"
+             xmlns:local="clr-namespace:GameCommunity">
   <ContentPage.Content>
-      <StackLayout>
-          <Label Text="This is a 详细页面" />
-      </StackLayout>
+        <ScrollView>
+            <StackLayout x:DataType="viewmodel:HomeStayDetailViewModel">
+                <!--走马灯展示图片-->
+                <StackLayout Padding="5">
+                    <component:AutoCarouselView 
+                            HeightRequest="300"
+                            WidthRequest="1000"
+                            ItemsSource="{Binding StayImages}"
+                            IndicatorView="indicatorView"
+                            Interval="5">
+                        <component:AutoCarouselView.ItemTemplate>
+                            <DataTemplate x:DataType="model:SingleImage">
+                                <RelativeLayout>
+                                    <Image Source="{Binding ImageUrl}"
+                                            Aspect="Fill"
+                                            HeightRequest="260"
+                                            WidthRequest="400"
+                                                               >
+                                        <Image.Effects>
+                                            <local:RoundEffect />
+                                        </Image.Effects>
+                                    </Image>
+                                </RelativeLayout>
+                            </DataTemplate>
+                        </component:AutoCarouselView.ItemTemplate>
+                    </component:AutoCarouselView>
+                    <IndicatorView x:Name="indicatorView"
+                           IndicatorColor="LightGray"
+                           SelectedIndicatorColor="DarkGray"
+                           HorizontalOptions="Center" />
+                </StackLayout>
+                <!--简介部分-->
+                <Frame Grid.Row="1" MinimumHeightRequest="200" BorderColor="Black" CornerRadius="20" HasShadow="True" >
+                    <StackLayout BackgroundColor="Transparent" VerticalOptions="FillAndExpand">
+                        <!--简介-->
+                        <Label Text="{Binding StayDescription}" FontSize="Micro"/>
+                        <!--名称-->
+                        <Label Text="{Binding StayName}" 
+                               FontSize="Subtitle" 
+                               TextColor="Black"
+                               FontAttributes="Bold"
+                               />
+
+                        <!--房东信息-->
+                        <Frame Grid.Row="1" MinimumHeightRequest="100" BorderColor="Black" CornerRadius="20" HasShadow="True" >
+                            <StackLayout BackgroundColor="Transparent" VerticalOptions="FillAndExpand">
+                                <StackLayout Orientation="Horizontal">
+                                    <Image Source="{Binding HostAvatar}" 
+                                           WidthRequest="50"
+                                           HeightRequest="50"
+                                           />
+                                    <StackLayout>
+                                        <StackLayout Orientation="Horizontal">
+                                            <Label Text="{Binding HostName}" FontAttributes="Bold"/>
+                                            <Label Text="{Binding HostLevel}" />
+                                        </StackLayout>
+                                        <Label Text="{Binding HostCommentNumShown}" />
+                                    </StackLayout>
+                                </StackLayout>
+                                
+                            </StackLayout>
+                        </Frame>
+                    </StackLayout>
+                </Frame>
+                
+                <!--地图-->
+                
+            </StackLayout>
+        </ScrollView>
   </ContentPage.Content>
 </ContentPage>
 

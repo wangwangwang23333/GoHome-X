@@ -16,7 +16,6 @@ namespace GameCommunity.Views
         public HomeStayDetailPage()
         {
             InitializeComponent();
-            // BindingContext = new ItemDetailViewModel();
             BindingContext = new HomeStayDetailViewModel();
         }
     }

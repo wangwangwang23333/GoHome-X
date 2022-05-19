@@ -14,7 +14,6 @@
                 <StackLayout>
                     <!-- 分割线 -->
                     <BoxView Color="Gray" HeightRequest="0.5" />
-
                     <StackLayout Padding="5">
                         <component:AutoCarouselView 
                             HeightRequest="300"
