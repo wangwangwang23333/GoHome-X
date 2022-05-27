@@ -12,5 +12,36 @@ namespace GameCommunity.Models
         public string Price { get; set; }
         public string RoomCapacity { get; set; }
         public string RoomImage { get; set; }
+
+        public string AreaShown
+        {
+            get {
+                return $"房间面积{Area}m²";
+            }
+        }
+
+        public string BathRoomShown
+        {
+            get
+            {
+                return $"独享卫生间{BathRoom}个";
+            }
+        }
+
+        public string RoomCapacityShown
+        {
+            get
+            {
+                return $"最多{RoomCapacity}人";
+            }
+        }
+
+        public string PriceShown
+        {
+            get
+            {
+                return $"价格{Price}/晚";
+            }
+        }
     }
 }

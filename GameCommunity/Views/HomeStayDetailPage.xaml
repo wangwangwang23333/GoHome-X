@@ -11,37 +11,14 @@
                          >
             <StackLayout>
                 <!--走马灯展示图片-->
-                <StackLayout Padding="5">
+                <CarouselView ItemsSource="{Binding StayImages}" HeightRequest="200">
+                    <CarouselView.ItemTemplate>
+                        <DataTemplate x:DataType="model:SingleImage">
+                            <Image Source="{Binding ImageUrl}" HeightRequest="200"/>
+                        </DataTemplate>
+                    </CarouselView.ItemTemplate>
+                </CarouselView>
 
-                    
-                    <component:AutoCarouselView 
-                            HeightRequest="300"
-                            WidthRequest="1000"
-                            ItemsSource="{Binding StayImages}"
-                            IndicatorView="indicatorView"
-                            Interval="5"
-                            x:Name="stayImageComponent">
-                        <component:AutoCarouselView.ItemTemplate>
-                            <DataTemplate x:DataType="model:SingleImage">
-                                <RelativeLayout>
-                                    <Image Source="{Binding ImageUrl}"
-                                            Aspect="Fill"
-                                            HeightRequest="260"
-                                            WidthRequest="400"
-                                                               >
-                                        <Image.Effects>
-                                            <local:RoundEffect />
-                                        </Image.Effects>
-                                    </Image>
-                                </RelativeLayout>
-                            </DataTemplate>
-                        </component:AutoCarouselView.ItemTemplate>
-                    </component:AutoCarouselView>
-                    <IndicatorView x:Name="indicatorView"
-                           IndicatorColor="LightGray"
-                           SelectedIndicatorColor="DarkGray"
-                           HorizontalOptions="Center" />
-                </StackLayout>
                 <!--简介部分-->
                 <Frame Grid.Row="1" MinimumHeightRequest="200" BorderColor="Black" CornerRadius="20" HasShadow="True" >
                     <StackLayout BackgroundColor="Transparent" VerticalOptions="FillAndExpand">
@@ -121,9 +98,16 @@
                                     <!--左右两边-->
                                     <StackLayout
                                         Orientation="Horizontal">
-                                        <Image Source="{Binding RoomImage}"/>
+                                        <Image Source="{Binding RoomImage}" WidthRequest="160">
+                                            <Image.Effects>
+                                                <local:RoundEffect />
+                                            </Image.Effects>
+                                        </Image>
                                         <StackLayout>
-                                            
+                                            <Label Text="{Binding AreaShown}" />
+                                            <Label Text="{Binding BathRoomShown}" />
+                                            <Label Text="{Binding RoomCapacityShown}" />
+                                            <Label Text="{Binding PriceShown}" />
                                         </StackLayout>
                                     </StackLayout>
                                 </StackLayout>
@@ -137,48 +121,50 @@
                 <!--评论信息展示-->
                 <Frame Grid.Row="1" MinimumHeightRequest="100" BorderColor="Black" CornerRadius="20" HasShadow="True" 
                        Margin="10" Padding="10">
-                    <StackLayout BackgroundColor="Transparent" VerticalOptions="FillAndExpand"
-                                 BindableLayout.ItemsSource="{Binding Comments}">
+                    <StackLayout>
                         <!--评论标题-->
                         <StackLayout Orientation="Horizontal" HorizontalOptions="Center">
                             <Label Text="房客评价" FontSize="Large"/>
                         </StackLayout>
-                        <BindableLayout.ItemTemplate>
-                            <DataTemplate x:DataType="model:Comment">
-                                <Frame Grid.Row="1" MinimumHeightRequest="100" BorderColor="Black" 
+                        <StackLayout BackgroundColor="Transparent" VerticalOptions="FillAndExpand"
+                                 BindableLayout.ItemsSource="{Binding Comments}">
+                            <BindableLayout.ItemTemplate>
+                                <DataTemplate x:DataType="model:Comment">
+                                    <Frame Grid.Row="1" MinimumHeightRequest="100" BorderColor="Black" 
                                        CornerRadius="20" HasShadow="True" >
-                                    <StackLayout>
-                                        <Label Text="{Binding DateShown}" />
-                                        <StackLayout Orientation="Horizontal">
-                                            <!--头像-->
-                                            <Image Source="{Binding Avatar}" 
+                                        <StackLayout>
+                                            <Label Text="{Binding DateShown}" />
+                                            <StackLayout Orientation="Horizontal">
+                                                <!--头像-->
+                                                <Image Source="{Binding Avatar}" 
                                                    HeightRequest="30"
                                                    WidthRequest="30"
                                                    >
-                                                <Image.Effects>
-                                                    <local:RoundEffect />
-                                                </Image.Effects>
-                                            </Image>
-                                            <Label Text="{Binding NickName}" FontSize="Medium"/>
+                                                    <Image.Effects>
+                                                        <local:RoundEffect />
+                                                    </Image.Effects>
+                                                </Image>
+                                                <Label Text="{Binding NickName}" FontSize="Medium"/>
+                                            </StackLayout>
+                                            <!--分割线-->
+                                            <BoxView Color="Gray" HeightRequest="0.5" />
+                                            <!--评分-->
+                                            <StackLayout Orientation="Horizontal">
+                                                <Label Text="{Binding CommentScoreShown}" TextColor="#F7BA2A"/>
+                                                <Label Text="{Binding CommentScore}" />
+                                            </StackLayout>
+                                            <Label Text="{Binding CommentContent}" />
                                         </StackLayout>
-                                        <!--分割线-->
-                                        <BoxView Color="Gray" HeightRequest="0.5" />
-                                        <!--评分-->
-                                        <StackLayout Orientation="Horizontal">
-                                            <Label Text="{Binding CommentScoreShown}" TextColor="#F7BA2A"/>
-                                            <Label Text="{Binding CommentScore}" />
-                                        </StackLayout>
-                                        <Label Text="{Binding CommentContent}" />
-                                    </StackLayout>
-                                </Frame>
-                                
-                            </DataTemplate>
-                        </BindableLayout.ItemTemplate>
+                                    </Frame>
+
+                                </DataTemplate>
+                            </BindableLayout.ItemTemplate>
+                        </StackLayout>
                     </StackLayout>
                 </Frame>
 
                 <!--地图-->
-                <Label Text="{Binding StayImages.Count}" />
+                
 
             </StackLayout>
         </ScrollView>

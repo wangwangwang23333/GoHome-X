@@ -6,6 +6,7 @@
              xmlns:local="clr-namespace:GameCommunity.ViewModels"  
              xmlns:model="clr-namespace:GameCommunity.Models" 
              xmlns:component="clr-namespace:GameCommunity.Components" 
+             xmlns:maps="clr-namespace:Xamarin.Forms.Maps;assembly=Xamarin.Forms.Maps"
              x:Name="BrowseItemsPage">
 
     <ContentPage.ToolbarItems>

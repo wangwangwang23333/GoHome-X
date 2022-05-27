@@ -18,7 +18,6 @@ namespace GameCommunity.Views
         {
             InitializeComponent();
             BindingContext = _viewModel = new HomeStayDetailViewModel();
-            stayImageComponent.BindingContext = _viewModel.StayImages;
 
         }
     }
