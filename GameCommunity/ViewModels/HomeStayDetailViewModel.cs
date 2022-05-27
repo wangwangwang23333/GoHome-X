@@ -23,15 +23,27 @@ namespace GameCommunity.ViewModels
         public HomeStayDetailViewModel()
         {
             LoadHomePageStayCommand = new Command(async () => await getStayDetailByStayId());
+            _homeStayDetail = new HomePageStayDetail();
+            Comments = new ObservableCollection<Comment>();
+            StayImages = new ObservableCollection<SingleImage>();
+            Rooms = new ObservableCollection<Room>();
         }
+
+        // 房源详细信息
+        public HomePageStayDetail _homeStayDetail { get; private set; }
+
+        // 评论列表
+        public ObservableCollection<Comment> Comments { get; private set; }
+
+        // 房间列表
+        public ObservableCollection<Room> Rooms { get; private set; }
 
         public long StayId { get; set; }
         // 房源图片
-        public List<SingleImage> stayImages;
+        public List<SingleImage> stayImages { get; private set; }
+
 
         public ObservableCollection<SingleImage> StayImages { get; set; }
-
-        public int[] s = { 1, 2, 3 };
 
         // 房源名称
         public string stayName;
@@ -144,8 +156,18 @@ namespace GameCommunity.ViewModels
         }
 
         // 入住开始和结束时间
-        public string StartTime;
-        public string Endtime;
+        public string startTime;
+        public string StartTime
+        {
+            get => startTime;
+            set => SetProperty(ref startTime, value);
+        }
+        public string endTime;
+        public string Endtime
+        {
+            get => endTime;
+            set => SetProperty(ref endTime, value);
+        }
 
         public long PageId
         {
@@ -162,11 +184,42 @@ namespace GameCommunity.ViewModels
             try
             {
                 await getStayDetailByStayId();
+                // 获取评论信息
+                await getCommentList();
             }
             catch (Exception)
             {
                 Debug.WriteLine("Failed to Load Item");
             }
+        }
+
+        /// <summary>
+        /// 获取评论信息
+        /// </summary>
+        /// <returns></returns>
+        public async Task getCommentList()
+        {
+            HttpClient client = new HttpClient();
+            client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
+            string text = await client.GetStringAsync(
+                "http://124.223.171.21:8080/api/v1/stay/comment?stayId=" + StayId);
+
+            // 解析json
+            JObject stayJson = (JObject)JsonConvert.DeserializeObject(text);
+            var commentList = stayJson["comments"].ToList();
+            foreach(var comment in commentList)
+            {
+                Comments.Add(new Comment{
+                    Id = comment["id"].ToString(),
+                    NickName = comment["nickName"].ToString(),
+                    Avatar = comment["avatar"].ToString(),
+                    Date = comment["date"].ToString(),
+                    CommentContent = comment["commentContent"].ToString(),
+                    CommentScore = double.Parse(comment["commentScore"].ToString())
+                }) ;
+                Console.WriteLine(comment["commentContent"].ToString());
+            }
+
         }
 
 
@@ -181,12 +234,32 @@ namespace GameCommunity.ViewModels
             JObject stayJson = (JObject)JsonConvert.DeserializeObject(text);
 
             // 民宿图片
-            StayImages = new ObservableCollection<SingleImage>();
+            
             var photos = stayJson["stayImages"].ToList();
             foreach (var photo in photos)
             {
                 StayImages.Add(new SingleImage(photo.ToString()));
+                _homeStayDetail.StayImages.Add(new SingleImage(photo.ToString()));
             }
+
+            // 房间信息
+            var rooms = stayJson["rooms"].ToList();
+            foreach (var room in rooms)
+            {
+                Console.WriteLine(room["price"].ToString());
+
+                Rooms.Add(new Room
+                {
+                    Id = room["id"].ToString(),
+                    Area = room["area"].ToString(),
+                    BathRoom = room["bathroom"].ToString(),
+                    RoomCapacity = room["roomCapacity"].ToString(),
+                    RoomImage = room["roomImage"].ToString(),
+                    Price = room["price"].ToString(),
+
+                });
+            }
+
 
             // 民宿名称
             StayName = stayJson["stayName"].ToString();

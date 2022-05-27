@@ -13,10 +13,13 @@ namespace GameCommunity.Views
 
     public partial class HomeStayDetailPage : ContentPage
     {
+        public HomeStayDetailViewModel _viewModel;
         public HomeStayDetailPage()
         {
             InitializeComponent();
-            BindingContext = new HomeStayDetailViewModel();
+            BindingContext = _viewModel = new HomeStayDetailViewModel();
+            stayImageComponent.BindingContext = _viewModel.StayImages;
+
         }
     }
 }

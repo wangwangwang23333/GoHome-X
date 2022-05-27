@@ -7,17 +7,20 @@
              xmlns:viewmodel="clr-namespace:GameCommunity.ViewModels"
              xmlns:local="clr-namespace:GameCommunity">
   <ContentPage.Content>
-        <RefreshView x:DataType="viewmodel:HomeStayDetailViewModel"
-                         Command="{Binding LoadHomePageStayCommand}">
-            <StackLayout >
+        <ScrollView x:DataType="viewmodel:HomeStayDetailViewModel"
+                         >
+            <StackLayout>
                 <!--走马灯展示图片-->
                 <StackLayout Padding="5">
+
+                    
                     <component:AutoCarouselView 
                             HeightRequest="300"
                             WidthRequest="1000"
                             ItemsSource="{Binding StayImages}"
                             IndicatorView="indicatorView"
-                            Interval="5">
+                            Interval="5"
+                            x:Name="stayImageComponent">
                         <component:AutoCarouselView.ItemTemplate>
                             <DataTemplate x:DataType="model:SingleImage">
                                 <RelativeLayout>
@@ -72,7 +75,8 @@
                         </StackLayout>
 
                         <!--房东信息-->
-                        <Frame Grid.Row="1" MinimumHeightRequest="100" BorderColor="Black" CornerRadius="20" HasShadow="True" >
+                        <Frame Grid.Row="1" 
+                               MinimumHeightRequest="100" BorderColor="Black" CornerRadius="20" HasShadow="True" >
                             <StackLayout BackgroundColor="Transparent" VerticalOptions="FillAndExpand">
                                 <StackLayout Orientation="Horizontal">
                                     <Image Source="{Binding HostAvatar}" 
@@ -97,16 +101,87 @@
                 </Frame>
 
                 <!--房间信息展示-->
+                <StackLayout BackgroundColor="Transparent" VerticalOptions="FillAndExpand"
+                                 BindableLayout.ItemsSource="{Binding Rooms}">
+                    <BindableLayout.ItemTemplate>
+                        <DataTemplate x:DataType="model:Room">
+                            <Frame Grid.Row="1" MinimumHeightRequest="100" BorderColor="Black" 
+                                       CornerRadius="20" HasShadow="True" 
+                                   Margin="10">
+                                <StackLayout>
+                                    <!--标题文字-->
+                                    <StackLayout 
+                                        Orientation="Horizontal" 
+                                        Spacing="0"
+                                        HorizontalOptions="Center"
+                                        >
+                                        <Label Text="房间" FontSize="Medium"/>
+                                        <Label Text="{Binding Id}" FontSize="Medium" />
+                                    </StackLayout>
+                                    <!--左右两边-->
+                                    <StackLayout
+                                        Orientation="Horizontal">
+                                        <Image Source="{Binding RoomImage}"/>
+                                        <StackLayout>
+                                            
+                                        </StackLayout>
+                                    </StackLayout>
+                                </StackLayout>
+                            </Frame>
+                        </DataTemplate>
+                    </BindableLayout.ItemTemplate>
+                </StackLayout>
+
 
 
                 <!--评论信息展示-->
-
+                <Frame Grid.Row="1" MinimumHeightRequest="100" BorderColor="Black" CornerRadius="20" HasShadow="True" 
+                       Margin="10" Padding="10">
+                    <StackLayout BackgroundColor="Transparent" VerticalOptions="FillAndExpand"
+                                 BindableLayout.ItemsSource="{Binding Comments}">
+                        <!--评论标题-->
+                        <StackLayout Orientation="Horizontal" HorizontalOptions="Center">
+                            <Label Text="房客评价" FontSize="Large"/>
+                        </StackLayout>
+                        <BindableLayout.ItemTemplate>
+                            <DataTemplate x:DataType="model:Comment">
+                                <Frame Grid.Row="1" MinimumHeightRequest="100" BorderColor="Black" 
+                                       CornerRadius="20" HasShadow="True" >
+                                    <StackLayout>
+                                        <Label Text="{Binding DateShown}" />
+                                        <StackLayout Orientation="Horizontal">
+                                            <!--头像-->
+                                            <Image Source="{Binding Avatar}" 
+                                                   HeightRequest="30"
+                                                   WidthRequest="30"
+                                                   >
+                                                <Image.Effects>
+                                                    <local:RoundEffect />
+                                                </Image.Effects>
+                                            </Image>
+                                            <Label Text="{Binding NickName}" FontSize="Medium"/>
+                                        </StackLayout>
+                                        <!--分割线-->
+                                        <BoxView Color="Gray" HeightRequest="0.5" />
+                                        <!--评分-->
+                                        <StackLayout Orientation="Horizontal">
+                                            <Label Text="{Binding CommentScoreShown}" TextColor="#F7BA2A"/>
+                                            <Label Text="{Binding CommentScore}" />
+                                        </StackLayout>
+                                        <Label Text="{Binding CommentContent}" />
+                                    </StackLayout>
+                                </Frame>
+                                
+                            </DataTemplate>
+                        </BindableLayout.ItemTemplate>
+                    </StackLayout>
+                </Frame>
 
                 <!--地图-->
                 <Label Text="{Binding StayImages.Count}" />
 
             </StackLayout>
-        </RefreshView>
+        </ScrollView>
     </ContentPage.Content>
 </ContentPage>
 
