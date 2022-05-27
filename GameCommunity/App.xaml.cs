@@ -3,6 +3,7 @@ using GameCommunity.Views;
 using System;
 using Xamarin.Forms;
 using Xamarin.Forms.Xaml;
+using Xamarin.Forms.Maps;
 
 namespace GameCommunity
 {
@@ -12,7 +13,7 @@ namespace GameCommunity
         public App()
         {
             InitializeComponent();
-
+            
             DependencyService.Register<MockDataStore>();
             DependencyService.Register<HomePageStayDataStore>();
             MainPage = new AppShell();

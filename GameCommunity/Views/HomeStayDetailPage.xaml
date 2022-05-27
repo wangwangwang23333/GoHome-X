@@ -7,8 +7,9 @@
              xmlns:viewmodel="clr-namespace:GameCommunity.ViewModels"
              xmlns:local="clr-namespace:GameCommunity">
   <ContentPage.Content>
-        <ScrollView>
-            <StackLayout x:DataType="viewmodel:HomeStayDetailViewModel">
+        <RefreshView x:DataType="viewmodel:HomeStayDetailViewModel"
+                         Command="{Binding LoadHomePageStayCommand}">
+            <StackLayout >
                 <!--走马灯展示图片-->
                 <StackLayout Padding="5">
                     <component:AutoCarouselView 
@@ -50,6 +51,26 @@
                                FontAttributes="Bold"
                                />
 
+                        <!--基本信息-->
+                        <StackLayout Orientation="Horizontal">
+                            <StackLayout Orientation="Horizontal" Spacing="0">
+                                <Label Text="{Binding RoomNum}" />
+                                <Label Text="间卧室" />
+                            </StackLayout>
+                            <StackLayout Orientation="Horizontal" Spacing="0">
+                                <Label Text="{Binding PublicBathroom}" />
+                                <Label Text="个共享浴室" />
+                            </StackLayout>
+                            <StackLayout Orientation="Horizontal" Spacing="0">
+                                <Label Text="可住" />
+                                <Label Text="{Binding StayCapacity}" />
+                                <Label Text="人" />
+                            </StackLayout>
+                            <StackLayout Orientation="Horizontal" Spacing="0">
+                                <Label Text="无障碍设施" />
+                            </StackLayout>
+                        </StackLayout>
+
                         <!--房东信息-->
                         <Frame Grid.Row="1" MinimumHeightRequest="100" BorderColor="Black" CornerRadius="20" HasShadow="True" >
                             <StackLayout BackgroundColor="Transparent" VerticalOptions="FillAndExpand">
@@ -63,19 +84,29 @@
                                             <Label Text="{Binding HostName}" FontAttributes="Bold"/>
                                             <Label Text="{Binding HostLevel}" />
                                         </StackLayout>
-                                        <Label Text="{Binding HostCommentNumShown}" />
+                                        <StackLayout Orientation="Horizontal" Spacing="0">
+                                            <Label Text="{Binding HostCommentNum}" />
+                                            <Label Text="条评价" />
+                                        </StackLayout>
                                     </StackLayout>
                                 </StackLayout>
-                                
+
                             </StackLayout>
                         </Frame>
                     </StackLayout>
                 </Frame>
-                
+
+                <!--房间信息展示-->
+
+
+                <!--评论信息展示-->
+
+
                 <!--地图-->
-                
+                <Label Text="{Binding StayImages.Count}" />
+
             </StackLayout>
-        </ScrollView>
-  </ContentPage.Content>
+        </RefreshView>
+    </ContentPage.Content>
 </ContentPage>
 

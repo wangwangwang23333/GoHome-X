@@ -18,6 +18,13 @@ namespace GameCommunity.ViewModels
     public class HomeStayDetailViewModel: BaseViewModel
     {
 
+        public Command LoadHomePageStayCommand { get; }
+
+        public HomeStayDetailViewModel()
+        {
+            LoadHomePageStayCommand = new Command(async () => await getStayDetailByStayId());
+        }
+
         public long StayId { get; set; }
         // 房源图片
         public List<SingleImage> stayImages;
@@ -68,7 +75,7 @@ namespace GameCommunity.ViewModels
 
         public string HostCommentNumShown
         {
-            get => HostCommentNum + "条评论";
+            get => hostCommentNum + "条评论";
         }
 
         // 房东名称
@@ -108,11 +115,33 @@ namespace GameCommunity.ViewModels
             set => SetProperty(ref bedNum, value);
         }
 
+        public int publicBathroom;
+        public int PublicBathroom
+        {
+            get => publicBathroom;
+            set => SetProperty(ref publicBathroom, value);
+        }
 
-        public int PublicBathroom;
-        public int PublicToilet;
-        public int StayCapacity;
-        public bool NonBarrierFacility;
+        public int publicToilet;
+        public int PublicToilet
+        {
+            get => publicToilet;
+            set => SetProperty(ref publicToilet, value);
+        }
+
+        public int stayCapacity;
+        public int StayCapacity
+        {
+            get => stayCapacity;
+            set => SetProperty(ref stayCapacity, value);
+        }
+
+        public bool nonBarrierFacility;
+        public bool NonBarrierFacility
+        {
+            get => nonBarrierFacility;
+            set => SetProperty(ref nonBarrierFacility, value);
+        }
 
         // 入住开始和结束时间
         public string StartTime;
@@ -132,7 +161,6 @@ namespace GameCommunity.ViewModels
         {
             try
             {
-                StayDescription = "testtest";
                 await getStayDetailByStayId();
             }
             catch (Exception)
@@ -169,6 +197,7 @@ namespace GameCommunity.ViewModels
             // 房东等级
             HostLevel = stayJson["hostLevel"].ToString();
             // 房东评论总数
+            hostCommentNum = int.Parse(stayJson["hostCommentNum"].ToString());
             HostCommentNum = int.Parse(stayJson["hostCommentNum"].ToString());
             // 房东名称
             HostName = stayJson["hostName"].ToString();
@@ -195,7 +224,7 @@ namespace GameCommunity.ViewModels
 
 
             // kknd
-            Console.WriteLine("done" + StayImages.Count.ToString());
+            Console.WriteLine("done" +hostCommentNum.ToString());
         }
     }
 }

@@ -9,6 +9,8 @@ using GameCommunity.Models;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
 using Xamarin.Essentials;
+using Xamarin.Forms.Xaml;
+
 
 namespace GameCommunity.Services
 {
@@ -32,12 +34,12 @@ namespace GameCommunity.Services
 
             homePageStayGroups = new List<HomePageStayGroup>();
 
-            // 网络检测
-            if (Connectivity.NetworkAccess == NetworkAccess.None)
-            {
-                return;
-            }
 
+        }
+
+        async void testWebConnection()
+        {
+            
         }
 
         public Task<bool> AddItemAsync(HomePageStay item)
@@ -72,7 +74,6 @@ namespace GameCommunity.Services
             // 同时开始任务
             await new TaskFactory().ContinueWhenAll(taskList.ToArray(), tArray =>
             {
-                Console.WriteLine("API都调用完了");
                 for (int index = 0; index < taskList.Count; ++index)
                 {
                     // 解析json
@@ -98,7 +99,6 @@ namespace GameCommunity.Services
                         StayCommentNum = int.Parse(stayJson["stayPositionInfo"]["stayCommentNum"].ToString()),
                         StayPhotoList = stayPhotoImages
                     });
-                    Console.WriteLine("Done for it" + taskList.Count.ToString());
                 }
 
                 // 加入分组中
@@ -131,7 +131,6 @@ namespace GameCommunity.Services
             // 同时开始任务
             await new TaskFactory().ContinueWhenAll(taskList.ToArray(), tArray =>
             {
-                Console.WriteLine("API都调用完了");
                 for (int index = 0; index < taskList.Count; ++index)
                 {
                     // 解析json
@@ -190,7 +189,6 @@ namespace GameCommunity.Services
             // 同时开始任务
             await new TaskFactory().ContinueWhenAll(taskList.ToArray(), tArray =>
             {
-                Console.WriteLine("API都调用完了");
                 for (int index = 0; index < taskList.Count; ++index)
                 {
                     // 解析json
@@ -251,7 +249,6 @@ namespace GameCommunity.Services
         public async Task<IEnumerable<HomePageStay>> GetItemsAsync(bool forceRefresh = false)
         {
             await getBestStay();
-            Console.WriteLine("=====执行完毕=======");
             return await Task.FromResult(homePageStays);
         }
 
@@ -265,7 +262,6 @@ namespace GameCommunity.Services
             await getHottestStay();
             await getBestStay();
             await getCheapestStay();
-            Console.WriteLine("================成功获取HomePageStayGroups===============length:" + homePageStayGroups.Count);
             return await Task.FromResult(homePageStayGroups);
         }
     }
